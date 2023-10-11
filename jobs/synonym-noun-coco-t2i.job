@@ -1,0 +1,25 @@
+#!/bin/sh
+
+DATASET=coco
+PERTURBATION=synonym_noun
+
+##################################################################
+echo 'evaluation with' $PERTURBATION 'perturbation on' $DATASET
+##################################################################
+declare -a models=(
+                "altclip"
+                "align"
+                "groupvit"
+                "clip"
+                )
+for MODEL in "${models[@]}"
+do
+   echo MODEL: $MODEL
+   python3 src/evaluation.py \
+    --dataset $DATASET \
+    --model $MODEL \
+    --perturbation $PERTURBATION \
+    --task t2i
+done
+
+echo 'Done!'

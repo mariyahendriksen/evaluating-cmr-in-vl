@@ -1,0 +1,3 @@
+python src/evaluation_i2t.py --model clip --dataset f30k
+
+python src/evaluation_t2i.py --model clip --dataset f30k

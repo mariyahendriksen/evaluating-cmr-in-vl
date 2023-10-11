@@ -1,0 +1,25 @@
+#!/bin/sh
+
+DATASET=coco_aug
+PERTURBATION=none
+
+##################################################################
+echo 'evaluation with' $PERTURBATION 'perturbation on' $DATASET
+##################################################################
+declare -a models=(
+                "align"
+                "altclip"
+                "clip"
+                "groupvit"
+                )
+for MODEL in "${models[@]}"
+do
+   echo MODEL: $MODEL
+   python src/evaluation.py \
+    --dataset $DATASET \
+    --model $MODEL \
+    --perturbation $PERTURBATION \
+    --task t2i
+done
+
+echo 'Done!'

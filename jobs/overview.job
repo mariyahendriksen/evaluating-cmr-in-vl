@@ -1,0 +1,24 @@
+declare -a PERTURBATIONS=(
+                'char_swap'
+                'missing_char'
+                'extra_char'
+                'nearby_char'
+                'probability_based_letter_change'
+                "synonym_noun"
+                "distraction_true"
+                "shuffle_nouns_and_adj"
+                )
+
+declare -a DATASETS=(
+                'f30k'
+                'f30k_aug'
+                'coco'
+                'coco_aug'
+                )
+
+declare -a MODELS=(
+                'altclip'
+                'align'
+                'clip'
+                'groupvit'
+                )

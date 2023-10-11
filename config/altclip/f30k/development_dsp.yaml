@@ -1,0 +1,22 @@
+dataset:
+  name: f30k
+  root: /notebooks/evaluating-cmr-in-mm/datasets/f30k/
+  img_folder: flickr30k-images
+  emb_folder: precomputed/altclip
+  img_emb_filename: f30k-img-embeddings.pkl
+  capt_emb_filename: f30k-capt-embeddings.pkl
+  annotation_file: annotations/dataset_flickr30k.json
+  augmentations: annotations/dataset_flickr30k_aug.json
+model:
+  name: BAAI/AltCLIP
+  path:  TBA
+  max_seq_length: 330
+
+dcg:
+  relevance_estimator:
+    name: clip-ViT-B-32
+    sim_score: cosine
+
+results:
+  dir: /notebooks/evaluating-cmr-in-mm/results
+  folder: altclip

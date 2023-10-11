@@ -1,0 +1,22 @@
+#!/bin/sh
+
+DATASET=coco_aug
+MODEL=align
+
+##################################################################
+echo 'evaluation of' $MODEL 'on' $DATASET
+##################################################################
+declare -a PERTURBATIONS=(
+                'synonym_adj'
+                )
+for PERTURBATION in "${PERTURBATIONS[@]}"
+do
+   echo perturbation: $PERTURBATION
+   python src/evaluation.py \
+    --dataset $DATASET \
+    --model $MODEL \
+    --perturbation $PERTURBATION \
+    --task t2i
+done
+
+echo 'Done!'

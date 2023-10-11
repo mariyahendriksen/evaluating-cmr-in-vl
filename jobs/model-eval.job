@@ -1,0 +1,11 @@
+#!/bin/sh
+
+MODEL=altclip
+
+python src/evaluation.py --dataset f30k --model $MODEL --perturbation none --task t2i
+python src/evaluation.py --dataset f30k --model $MODEL --perturbation none --task i2t
+
+python src/evaluation.py --dataset coco --model $MODEL --perturbation none --task t2i
+python src/evaluation.py --dataset coco --model $MODEL --perturbation none --task i2t
+
+echo 'Done!'

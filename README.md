@@ -1,0 +1,97 @@
+# Evaluating Image-Text Retrieval in Multimodal Models
+
+This repository contains the code for the internship project of 'Evaluating Image-Text Retrieval in Multimodal Models'.
+
+## Project Organization
+------------
+
+    ├── Makefile           <- Makefile with commands like `make data` or `make test`
+    ├── README.md          <- The top-level README for developers using this project.
+    |
+    ├── src                <- Source code for use in this project.
+    │   ├── __init__.py    <- Makes directory a Python module
+    │   │
+    │   ├── main.py        <- Entry-point for the CLI
+    │   │
+    │   ├── data           <- Package to download or generate data
+    │   │
+    │   ├── features       <- Package to turn raw data into features for modeling
+    │   │
+    │   ├── models         <- Package to train models and then use trained models to make
+    │   │                     predictions
+    │   └── visualization  <- Package to create exploratory and results oriented visualizations
+    │
+    ├── data
+    │   ├── external       <- Data from third party sources.
+    │   ├── features       <- Processed data that has been converted to features.
+    │   ├── interim        <- Intermediate data that has been transformed.
+    │   ├── processed      <- The final, canonical data sets for modeling.
+    │   └── raw            <- The original, immutable data dump.
+    │
+    ├── docs               <- A default Sphinx project; see sphinx-doc.org for details
+    │
+    ├── models             <- Trained and serialized models, model predictions, or model summaries
+    │
+    ├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
+    │                         the creator's initials, and a short `-` delimited description, e.g.
+    │                         `1.0-jqp-initial-data-exploration`.
+    │
+    ├── jobs               <- Data science platform job specs. This folder contains all the DSP YAML job specs.
+    │                         You can use these to store the launch specs for various kinds of jobs including the parameters.
+    │                         For any spec present in this folder (for eg. example-job.yaml),
+    │                         you can launch a DSP job with that spec using `make launch-${spec-name}`
+    │                         (for eg. `make launch-example-job`).
+    │
+    ├── references         <- Data dictionaries, manuals, and all other explanatory materials.
+    │
+    ├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
+    │   └── figures        <- Generated graphics and figures to be used in reporting
+    │
+    ├── tests
+    │   ├── unit           <- Unit tests.
+    │   └── integration    <- Integration tests.
+    |
+    ├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
+    │                         generated with `pip freeze > requirements.txt`
+    │
+    ├── setup.py           <- Makes project pip installable (pip install -e .) so it can be imported.
+    └── setup.cfg          <- Config file with settings for flake8 and isort
+
+
+## Setting Dev Environment
+
+1. Create a clean virtual environment and install the requirements for this project
+```
+make create-venv
+```
+2. Activate virtual environment via -
+```
+source .venv/bin/activate
+```
+
+## Make targets
+
+
+1. Run `make test` to verify everything is in order.
+2. Run `make lint` to replicate the Jenkins linting tests locally.
+3. Run `make fix-lint` to automatically fix some of these errors.
+4. Run `make data` to generate data.
+5. Run `make features` to generate features.
+6. Run `make model` to generate models.
+7. Run `make figures` to generate figures.
+8. Run `make setup-dsp` to setup Katie, the CLI for the [Data Science Platform.](https://bbgithub.dev.bloomberg.com/pages/ds/ds-platform-ctrl/)
+9. Run `make launch-dsp-notebook` to launch a Jupyter notebook with this repository on the Data Science Platform. To change the Jupyter job config, you can modify `notebook.yaml`. To learn more about how to use YAMLs with the Data Science Platform, [remoteio](https://bbgithub.dev.bloomberg.com/nlu/remoteio) and other DSP tips and tricks check out the [DSP Tips talk](http://bburl/guild-week-dsp-tips)
+
+You can modify the targets to generate features, data etc. in the `Makefile`
+
+## Features
+
+This template is based on [the datascience cookiecutter](http://drivendata.github.io/cookiecutter-data-science/) but
+it has been adapted for internal Bloomberg use and comes baked with features related to the [Data Science Platform.](https://bbgithub.dev.bloomberg.com/pages/ds/ds-platform-ctrl/)
+
+----------
+
+<small> 🔆 This project was generated by [cc-research-project v1.1.8](https://bbgithub.dev.bloomberg.com/ml-guild/cc-research-project/releases/tag/v1.1.8) 🔆 </small>
+
+<!-- Project generated by cc-research-project v1.1.8. Please do not remove this comment or the above line. -->
+

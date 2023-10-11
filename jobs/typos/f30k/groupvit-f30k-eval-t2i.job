@@ -1,0 +1,24 @@
+#!/bin/sh
+
+DATASET=f30k
+MODEL=groupvit
+
+##################################################################
+echo 'evaluation of' $MODEL 'on' $DATASET
+##################################################################
+declare -a PERTURBATIONS=(
+                'extra_char'
+                'nearby_char'
+                'probability_based_letter_change'
+                )
+for PERTURBATION in "${PERTURBATIONS[@]}"
+do
+   echo perturbation: $PERTURBATION
+   CUDA_VISIBLE_DEVICES=1 python src/evaluation.py \
+    --dataset $DATASET \
+    --model $MODEL \
+    --perturbation $PERTURBATION \
+    --task t2i
+done
+
+echo 'Done!'

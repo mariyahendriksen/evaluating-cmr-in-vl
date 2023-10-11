@@ -1,0 +1,27 @@
+#!/bin/sh
+
+DATASET=f30k_aug
+PERTURBATION=none
+TASK=t2i
+
+##################################################################
+echo 'evaluation with typos perturbation on f30k'
+##################################################################
+declare -a models=(
+                "altclip"
+                "align"
+                "groupvit"
+                "clip"
+                )
+for MODEL in "${models[@]}"
+do
+   echo MODEL: $MODEL
+   echo 'evaluation with typos perturbation on f30k'
+   python src/evaluation.py \
+    --dataset $DATASET \
+    --model $MODEL \
+    --perturbation $PERTURBATION \
+    --task $TASK
+done
+
+echo 'Done!'

@@ -1,0 +1,26 @@
+#!/bin/sh
+
+DATASET=f30k
+PERTURBATION=typos
+
+##################################################################
+echo 'evaluation with typos perturbation on f30k'
+##################################################################
+declare -a models=(
+                "altclip"
+                "align"
+                "groupvit"
+                "clip"
+                )
+for MODEL in "${models[@]}"
+do
+   echo MODEL: $MODEL
+   echo 'evaluation with typos perturbation on f30k'
+   python src/evaluation.py \
+    --dataset $DATASET \
+    --model $MODEL \
+    --perturbation $PERTURBATION \
+    --task t2i
+done
+
+echo 'Done!'

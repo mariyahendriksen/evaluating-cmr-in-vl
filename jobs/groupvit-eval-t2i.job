@@ -1,0 +1,24 @@
+#!/bin/sh
+
+DATASET=coco
+MODEL=groupvit
+
+##################################################################
+echo 'evaluation of' $MODEL 'on' $DATASET
+##################################################################
+declare -a PERTURBATIONS=(
+                "distraction_true"
+                "synonym_noun"
+                "shuffle_nouns_and_adj"
+                )
+for PERTURBATION in "${PERTURBATIONS[@]}"
+do
+   echo perturbation: $PERTURBATION
+   python src/evaluation.py \
+    --dataset $DATASET \
+    --model $MODEL \
+    --perturbation $PERTURBATION \
+    --task t2i
+done
+
+echo 'Done!'

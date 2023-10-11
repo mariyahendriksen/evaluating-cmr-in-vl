@@ -1,0 +1,6 @@
+#!/bin/sh
+python src/evaluation.py --dataset f30k --model altclip --perturbation none --compute_from_scratch False --task i2t
+python src/evaluation.py --dataset coco --model altclip --perturbation none --compute_from_scratch False --task i2t
+
+python src/evaluation.py --dataset f30k --model bridgetower --perturbation none --compute_from_scratch False --task i2t
+python src/evaluation.py --dataset coco --model bridgetower --perturbation none --compute_from_scratch False --task i2t

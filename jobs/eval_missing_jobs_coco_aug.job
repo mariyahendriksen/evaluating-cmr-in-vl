@@ -1,0 +1,34 @@
+#!/bin/sh
+CUDA_VISIBLE_DEVICES=$1
+
+DATASET=coco_aug
+echo 'Dataset: ' $DATASET
+
+MODEL=clip
+declare -a PERTURBATIONS=(
+    "missing_char"
+    )
+for PERTURBATION in "${PERTURBATIONS[@]}"
+do
+   echo MODEL: $MODEL
+   CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES python src/evaluation.py \
+    --dataset $DATASET \
+    --model $MODEL \
+    --perturbation $PERTURBATION \
+    --task t2i
+done
+
+
+MODEL=groupvit
+declare -a PERTURBATIONS=(
+    "missing_char"
+    )
+for PERTURBATION in "${PERTURBATIONS[@]}"
+do
+   echo MODEL: $MODEL
+   CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES python src/evaluation.py \
+    --dataset $DATASET \
+    --model $MODEL \
+    --perturbation $PERTURBATION \
+    --task t2i
+done

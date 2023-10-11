@@ -1,0 +1,25 @@
+#!/bin/sh
+
+DATASET=coco_aug
+MODEL=clip
+
+##################################################################
+echo 'evaluation of' $MODEL 'on' $DATASET
+##################################################################
+declare -a PERTURBATIONS=(
+                "typos"
+                "synonym_noun"
+                "distraction_true"
+                "shuffle_nouns_and_adj"
+                )
+for PERTURBATION in "${PERTURBATIONS[@]}"
+do
+   echo perturbation: $PERTURBATION
+   python src/evaluation.py \
+    --dataset $DATASET \
+    --model $MODEL \
+    --perturbation $PERTURBATION \
+    --task t2i
+done
+
+echo 'Done!'

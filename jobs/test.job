@@ -1,0 +1,2 @@
+export model
+echo $model

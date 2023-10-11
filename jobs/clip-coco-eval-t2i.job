@@ -1,0 +1,24 @@
+#!/bin/sh
+
+DATASET=$1
+MODEL=clip
+TASK=i2t
+
+##################################################################
+echo 'evaluation of' $MODEL 'on' $DATASET
+##################################################################
+declare -a PERTURBATIONS=(
+    "none"
+    )
+for PERTURBATION in "${PERTURBATIONS[@]}"
+do
+   echo perturbation: $PERTURBATION
+   python src/evaluation.py \
+    --dataset $DATASET \
+    --model $MODEL \
+    --perturbation $PERTURBATION \
+    --task $TASK \
+    --compute_from_scratch
+done
+
+echo 'Done!'

@@ -1,0 +1,26 @@
+#!/bin/sh
+
+EXISTING_PERTURBATION=typos
+TARGET_PERTURBATION=shuffle_nouns_and_adj
+DATASET=coco
+
+ROOT=/Users/mhendriksen/Desktop/repositories/datasets/$DATASET/precomputed
+
+declare -a models=(
+                "align"
+                "altclip"
+                "clip"
+                "groupvit"
+                )
+for MODEL in "${models[@]}"
+do
+   echo 'MODEL:' $MODEL
+   DIR=$ROOT/$MODEL/$TARGET_PERTURBATION
+   echo 'DIR:' $DIR
+   mkdir $DIR
+   echo 'created a dir' $DIR
+   echo 'copy img emb to the new dir'
+   cp $ROOT/$MODEL/$EXISTING_PERTURBATION/coco-img-embeddings.pkl $DIR
+done
+
+echo 'Done!'

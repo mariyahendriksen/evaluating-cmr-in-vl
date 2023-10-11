@@ -1,0 +1,23 @@
+#!/bin/sh
+
+DATASET=coco
+PERTURBATION=typos
+
+##################################################################
+echo 'evaluation with' $PERTURBATION 'perturbation on' $DATASET
+##################################################################
+declare -a models=(
+                "groupvit"
+                "clip"
+                )
+for MODEL in "${models[@]}"
+do
+   echo MODEL: $MODEL
+   python src/evaluation.py \
+    --dataset $DATASET \
+    --model $MODEL \
+    --perturbation $PERTURBATION \
+    --task t2i \ 
+done
+
+echo 'Done!'

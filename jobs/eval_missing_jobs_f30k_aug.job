@@ -1,0 +1,78 @@
+#!/bin/sh
+CUDA_VISIBLE_DEVICES=$1
+
+DATASET=f30k
+echo 'Dataset: ' $DATASET
+
+
+MODEL=altclip
+declare -a PERTURBATIONS=(
+    "extra_char"
+    "nearby_char"
+    "probability_based_letter_change"
+    )
+for PERTURBATION in "${PERTURBATIONS[@]}"
+do
+   echo MODEL: $MODEL
+   CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES python src/evaluation.py \
+    --dataset $DATASET \
+    --model $MODEL \
+    --perturbation $PERTURBATION \
+    --task t2i
+done
+
+
+MODEL=align
+declare -a PERTURBATIONS=(
+    "extra_char"
+    "nearby_char"
+    "probability_based_letter_change"
+    "synonym_adj"
+    "distraction_false"
+    "shuffle_all_words"
+    "shuffle_allbut_nouns_and_adj"
+    "shuffle_within_trigrams"
+    "shuffle_trigrams"
+    )
+for PERTURBATION in "${PERTURBATIONS[@]}"
+do
+   echo MODEL: $MODEL
+   CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES python src/evaluation.py \
+    --dataset $DATASET \
+    --model $MODEL \
+    --perturbation $PERTURBATION \
+    --task t2i
+done
+
+
+MODEL=clip
+declare -a PERTURBATIONS=(
+    "extra_char"
+    "nearby_char"
+    "probability_based_letter_change"
+    )
+for PERTURBATION in "${PERTURBATIONS[@]}"
+do
+   echo MODEL: $MODEL
+   CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES python src/evaluation.py \
+    --dataset $DATASET \
+    --model $MODEL \
+    --perturbation $PERTURBATION \
+    --task t2i
+done
+
+MODEL=groupvit
+declare -a PERTURBATIONS=(
+    "extra_char"
+    "nearby_char"
+    "probability_based_letter_change"
+    )
+for PERTURBATION in "${PERTURBATIONS[@]}"
+do
+   echo MODEL: $MODEL
+   CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES python src/evaluation.py \
+    --dataset $DATASET \
+    --model $MODEL \
+    --perturbation $PERTURBATION \
+    --task t2i
+done

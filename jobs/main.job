@@ -1,0 +1,7 @@
+# model eval example
+python src/evaluation.py --dataset coco --model clip --perturbation none --compute_from_scratch True --task t2i
+python src/evaluation.py --dataset f30k --model clip --perturbation none --compute_from_scratch True --task t2i
+
+
+# results printer
+python src/results_printer.py --model clip --dataset coco

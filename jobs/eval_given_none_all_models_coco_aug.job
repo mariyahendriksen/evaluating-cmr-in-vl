@@ -1,0 +1,28 @@
+#!/bin/sh
+CUDA_VISIBLE_DEVICES=$1
+PERTURBATION=none
+
+declare -a DATASETS=(
+    "coco_aug"
+    )
+
+declare -a MODELS=(
+    "altclip"
+    "align"
+    "groupvit"
+    "clip"
+    )
+
+for DATASET in "${DATASETS[@]}"; do
+    for MODEL in "${MODELS[@]}"; do
+        echo $MODEL ' evaluation with ' $PERTURBATION ' perturbation on ' $DATASET
+        echo 'CUDA_VISIBLE_DEVICES: ' $CUDA_VISIBLE_DEVICES
+        CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES python src/evaluation.py \
+            --dataset $DATASET \
+            --model $MODEL \
+            --perturbation $PERTURBATION \
+            --task t2i
+    done;
+done;
+echo 'Done!'
+    

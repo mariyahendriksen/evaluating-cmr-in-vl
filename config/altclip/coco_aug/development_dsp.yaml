@@ -1,0 +1,23 @@
+dataset:
+  name: coco_aug
+  root: /notebooks/evaluating-cmr-in-mm/datasets/coco/
+  img_folder: val2014
+  emb_folder: precomputed/altclip
+  img_emb_filename: coco-img-embeddings.pkl
+  capt_emb_filename: coco-capt-embeddings.pkl
+  annotation_file: annotations/dataset_coco.json
+  augmentations: annotations/dataset_coco_aug.json
+
+model:
+  name: BAAI/AltCLIP
+  path:  TBA
+  max_seq_length: 330
+
+dcg:
+  relevance_estimator:
+    name: clip-ViT-B-32
+    sim_score: cosine
+
+results:
+  dir: /notebooks/evaluating-cmr-in-mm/results
+  folder: altclip

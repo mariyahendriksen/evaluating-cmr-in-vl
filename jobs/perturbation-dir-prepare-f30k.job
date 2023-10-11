@@ -1,0 +1,24 @@
+#!/bin/sh
+
+EXISTING_PERTURBATION=shuffle_nouns_and_adj
+TARGET_PERTURBATION=none
+DATASET=f30k
+
+declare -a models=(
+                "align"
+                "altclip"
+                "clip"
+                "groupvit"
+                )
+for MODEL in "${models[@]}"
+do
+   echo 'MODEL:' $MODEL
+   DIR=datasets/$DATASET/precomputed/$MODEL/$TARGET_PERTURBATION
+   echo 'DIR:' $DIR
+   mkdir $DIR
+   echo 'created a dir' $DIR
+   echo 'copy img emb to the new dir'
+   cp datasets/$DATASET/precomputed/$MODEL/$EXISTING_PERTURBATION/f30k-img-embeddings.pkl $DIR
+done
+
+echo 'Done!'
