@@ -4,9 +4,6 @@ isort<5
 pytest
 click
 sphinx
-bloomberg.ai.remoteio
-bloomberg.ds.katiecli
-bloomberg.ds.maestro.client
 sentence-transformers
 botocore
 boto3
