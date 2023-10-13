@@ -1,6 +1,6 @@
 dataset:
   name: f30k
-  root: /notebooks/evaluating-cmr-in-mm/datasets/f30k/
+  root: /evaluating-cmr-in-mm/datasets/f30k/
   img_folder: flickr30k-images
   emb_folder: precomputed/clip
   img_emb_filename: f30k-img-embeddings.pkl
@@ -19,5 +19,5 @@ dcg:
     sim_score: cosine
 
 results:
-  dir: /notebooks/evaluating-cmr-in-mm/results
+  dir: /evaluating-cmr-in-mm/results
   folder: clip

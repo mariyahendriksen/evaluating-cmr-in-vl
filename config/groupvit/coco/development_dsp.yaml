@@ -1,6 +1,6 @@
 dataset:
   name: coco
-  root: /notebooks/evaluating-cmr-in-mm/datasets/coco/
+  root: /evaluating-cmr-in-mm/datasets/coco/
   img_folder: val2014
   emb_folder: precomputed/groupvit
   img_emb_filename: coco-img-embeddings.pkl
@@ -19,5 +19,5 @@ dcg:
     sim_score: cosine
 
 results:
-  dir: /notebooks/evaluating-cmr-in-mm/results
+  dir: /evaluating-cmr-in-mm/results
   folder: groupvit
