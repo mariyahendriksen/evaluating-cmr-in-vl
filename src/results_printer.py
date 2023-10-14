@@ -1,21 +1,16 @@
 import torch
 import os
-
-if torch.cuda.is_available():
-    PROJECT_PATH = "/notebooks/evaluating-cmr-in-mm/"
-    os.environ["http_proxy"] = "http://devproxy.bloomberg.com:82"
-    os.environ["https_proxy"] = "http://devproxy.bloomberg.com:82"
-else:
-    PROJECT_PATH = "/Users/mhendriksen/Desktop/repositories/evaluating-cmr-in-mm/"
 import sys
 
+PROJECT_PATH = '/home/mhendriksen2/projects/evaluating-cmr-in-vl'
 sys.path.append(PROJECT_PATH)
+from src.utils.utils import get_config, get_abs_file_paths, get_results_dir, get_project_path
+
+
 import torch
 import os
 import argparse
-
 torch.set_num_threads(4)
-from src.utils.utils import get_config, get_abs_file_paths
 import pickle
 
 
@@ -39,10 +34,11 @@ def check_string_for_conditions(conditions, s) -> bool:
     return all(ans)
 
 def main(args):
-    if torch.cuda.is_available():
-        results_dir = '/notebooks/evaluating-cmr-in-mm/results'
-    else:
-        results_dir = '/Users/mhendriksen/Desktop/repositories/evaluating-cmr-in-mm/results'
+    # if torch.cuda.is_available():
+    #     results_dir = '/notebooks/evaluating-cmr-in-mm/results'
+    # else:
+    #     results_dir = '/Users/mhendriksen/Desktop/repositories/evaluating-cmr-in-mm/results'
+    results_dir = get_results_dir()
 
     print('results_root: ', results_dir)
     results_files = list(get_abs_file_paths(results_dir))

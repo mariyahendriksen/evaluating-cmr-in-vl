@@ -19,5 +19,5 @@ dcg:
     sim_score: cosine
 
 results:
-  dir: /Users/mhendriksen/Desktop/repositories/evaluating-cmr-in-mm/results
+  dir: /Users/mhendriksen/Desktop/repositories/results
   folder: groupvit

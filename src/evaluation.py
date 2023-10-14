@@ -1,12 +1,9 @@
 import torch
 import os
+import sys
 
-if torch.cuda.is_available():
-    PROJECT_PATH = "/notebooks/evaluating-cmr-in-mm/"
-    os.environ["http_proxy"] = "http://devproxy.bloomberg.com:82"
-    os.environ["https_proxy"] = "http://devproxy.bloomberg.com:82"
-else:
-    PROJECT_PATH = "/Users/mhendriksen/Desktop/repositories/evaluating-cmr-in-mm/"
+from src.utils.utils import get_config, get_abs_file_paths, get_results_dir, get_project_path
+PROJECT_PATH = get_project_path()
 import sys
 sys.path.append(PROJECT_PATH)
 
@@ -93,6 +90,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--task",
         type=str,
+        default='t2i',
         choices=["t2i", "i2t"],
         help="Task type: t2i, i2t",
     )

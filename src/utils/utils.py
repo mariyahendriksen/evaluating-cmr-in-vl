@@ -19,13 +19,33 @@ def get_device():
 
 
 def get_machine_type() -> str:
-    device = get_device()
-    if device == 'cuda':
+    cwd = os.getcwd()
+    if 'mhendriksen2' in cwd:
         return 'dsp'
-    elif device == 'cpu':
+    elif 'mhendriksen' in cwd:
         return 'local'
     else:
         raise NotImplementedError
+
+def get_results_dir():
+    machine_type = get_machine_type()
+    if machine_type == 'dsp':
+        dir = './results'
+    elif machine_type == 'local':
+        dir = '/Users/mhendriksen/Desktop/repositories/evaluating-cmr-in-vl/results'
+    else:
+        raise NotImplementedError
+    return dir
+
+def get_project_path():
+    machine_type = get_machine_type()
+    if machine_type == 'dsp':
+        path = '/home/mhendriksen2/projects/evaluating-cmr-in-vl'
+    elif machine_type == 'local':
+        path = '/Users/mhendriksen/Desktop/repositories/evaluating-cmr-in-vl'
+    else:
+        raise NotImplementedError
+    return path
 
 
 def get_config_path(dataset, model):
