@@ -2,16 +2,16 @@ import torch
 import os
 import sys
 
-PROJECT_PATH = '/home/mhendriksen2/projects/evaluating-cmr-in-vl'
+PROJECT_PATH = '/home/mhendriksen2/projects/evaluating-cmr-in-vl' if 'mhendriksen2' in os.getcwd() else '/Users/mhendriksen/Desktop/repositories/evaluating-cmr-in-vl'
 sys.path.append(PROJECT_PATH)
 from src.utils.utils import get_config, get_abs_file_paths, get_results_dir, get_project_path
-
-
 import torch
 import os
 import argparse
 torch.set_num_threads(4)
 import pickle
+
+from src.constants.constants import DATASETS, TASKS, MODELS, PERTURBATIONS
 
 
 def get_mean(dataf, col: str, round_factor=4):
@@ -34,36 +34,29 @@ def check_string_for_conditions(conditions, s) -> bool:
     return all(ans)
 
 def main(args):
-    # if torch.cuda.is_available():
-    #     results_dir = '/notebooks/evaluating-cmr-in-mm/results'
-    # else:
-    #     results_dir = '/Users/mhendriksen/Desktop/repositories/evaluating-cmr-in-mm/results'
     results_dir = get_results_dir()
-
-    print('results_root: ', results_dir)
-    results_files = list(get_abs_file_paths(results_dir))
-    results_files = [file for file in results_files if file.endswith('.pkl')]
-    results_files.sort()
-    # print('results_files: ', results_files)
-
-    for filepath in results_files:
-        # print('filepath', filepath)
-        if check_string_for_conditions(conditions=args.c, s=filepath):
-            dataset, model, task = parse_file_path(path=filepath)
-            with open(filepath, 'rb') as f:
-                data = pickle.load(f)
-            print(
-                f"""
-                File: {filepath}
-                Df size: {data.shape}
-                Task: {task}
-                Model: {model}
-                Dataset: {dataset}
-                R@1, R@5, R@10, DCG:
-                {get_mean(data, f'{task}_recalls_at_1')}\t{get_mean(data, f'{task}_recalls_at_5')}\t{get_mean(data, f'{task}_recalls_at_10')}\t{get_mean(data, f'{task}_dcgs')}
-                    """
-                )
-
+    results_files = []
+    answers = []
+    for dataset in DATASETS:
+        for task in TASKS:
+            for model in MODELS:
+                for perturbation in PERTURBATIONS:
+                    filename = f'{perturbation}-results.pkl'
+                    filepath = os.path.join(results_dir, dataset, model, task, filename)
+                    # results_files.append(filepath)
+                    if check_string_for_conditions(conditions=args.c, s=filepath):
+                        print(f"File: {filepath}\nTask: {task}\nModel: {model}\nDataset: {dataset}\nR@1, R@5, R@10, DCG:")
+                        if os.path.exists(filepath):
+                            with open(filepath, 'rb') as f:
+                                data = pickle.load(f)
+                            ans = f"{get_mean(data, f'{task}_recalls_at_1')}\t{get_mean(data, f'{task}_recalls_at_5')}\t{get_mean(data, f'{task}_recalls_at_10')}\t{get_mean(data, f'{task}_dcgs')}"
+                        else:
+                            ans = 'None'
+                        print(f'{ans}\n')
+                        answers.append(ans)
+    print('Printing answers line by line:')
+    for ans in answers:
+        print(ans)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

@@ -18,6 +18,13 @@ def get_device():
     return 'cuda' if torch.cuda.is_available() else 'cpu' if torch.backends.mps.is_built() else 'cpu'
 
 
+def is_local():
+    import os
+    if 'mhendriksen2' in os.getcwd():
+        return False
+    return True
+
+
 def get_machine_type() -> str:
     cwd = os.getcwd()
     if 'mhendriksen2' in cwd:
