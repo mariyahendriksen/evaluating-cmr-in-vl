@@ -1,0 +1,11 @@
+
+declare -a PERTURBATIONS=(
+    'coco', 't2i', 'clip', 'distraction_false'
+    'f30k', 't2i', 'altclip', 'char_swap'
+    )
+
+for i in "${PERTURBATIONS[@]}"
+do
+    IFS=","; set -- $i;
+    echo $1
+done

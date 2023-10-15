@@ -1,15 +1,24 @@
-#!/bin/sh
-CUDA_VISIBLE_DEVICES=$1
+#!/bin/bash
+#SBATCH -t 04:00:00
+#SBATCH -N 1
+#SBATCH --cpus-per-task=10
+#SBATCH --mem=25gb
+#SBATCH --gpus=1
+#SBATCH --partition=gpu
+#SBATCH -o ./src/logs/eval_missing_jobs_f30k_aug.out
 
-DATASET=f30k
+DATASET=f30k_aug
 echo 'Dataset: ' $DATASET
-
 
 MODEL=altclip
 declare -a PERTURBATIONS=(
-    "extra_char"
-    "nearby_char"
-    "probability_based_letter_change"
+    'none'
+    'char_swap'
+    'extra_char'
+    'nearby_char'
+    'probability_based_letter_change'
+    'synonym_noun'
+    'distraction_true'
     )
 for PERTURBATION in "${PERTURBATIONS[@]}"
 do
@@ -24,15 +33,19 @@ done
 
 MODEL=align
 declare -a PERTURBATIONS=(
-    "extra_char"
-    "nearby_char"
-    "probability_based_letter_change"
-    "synonym_adj"
-    "distraction_false"
-    "shuffle_all_words"
-    "shuffle_allbut_nouns_and_adj"
-    "shuffle_within_trigrams"
-    "shuffle_trigrams"
+    'none'
+    'char_swap'
+    'extra_char'
+    'nearby_char'
+    'probability_based_letter_change'
+    'synonym_noun'
+    'synonym_adj'
+    'distraction_true'
+    'distraction_false'
+    'shuffle_all_words'
+    'shuffle_allbut_nouns_and_adj'
+    'shuffle_within_trigrams'
+    'shuffle_trigrams'
     )
 for PERTURBATION in "${PERTURBATIONS[@]}"
 do
@@ -47,9 +60,12 @@ done
 
 MODEL=clip
 declare -a PERTURBATIONS=(
+    "char_swap"
     "extra_char"
     "nearby_char"
     "probability_based_letter_change"
+    'synonym_noun'
+    'distraction_true'
     )
 for PERTURBATION in "${PERTURBATIONS[@]}"
 do
@@ -63,9 +79,12 @@ done
 
 MODEL=groupvit
 declare -a PERTURBATIONS=(
+    "char_swap"
     "extra_char"
     "nearby_char"
     "probability_based_letter_change"
+    "synonym_noun"
+    'distraction_true'
     )
 for PERTURBATION in "${PERTURBATIONS[@]}"
 do
