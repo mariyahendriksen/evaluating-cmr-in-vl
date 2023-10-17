@@ -33,7 +33,6 @@ def check_string_for_conditions(conditions, s) -> bool:
 
 def main(args):
     results_dir = get_results_dir()
-    results_files = []
     answers = []
     missing_jobs = []
     for dataset in DATASETS:
@@ -42,7 +41,6 @@ def main(args):
                 for perturbation in PERTURBATIONS:
                     filename = f'{perturbation}-results.pkl'
                     filepath = os.path.join(results_dir, dataset, model, task, filename)
-                    # results_files.append(filepath)
                     if check_string_for_conditions(conditions=args.c, s=filepath):
                         print(f"File: {filepath}\nTask: {task}\nModel: {model}\nDataset: {dataset}\nR@1, R@5, R@10, DCG:")
                         if os.path.exists(filepath):
