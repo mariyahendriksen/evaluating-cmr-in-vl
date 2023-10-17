@@ -3,6 +3,7 @@ import torch.nn as nn
 import numpy as np
 from typing import Union, List, Type
 from sentence_transformers import SentenceTransformer
+from transformers import AlignProcessor, AlignModel
 import munch
 from src.data.dataset import Dataset
 import os
@@ -14,7 +15,6 @@ import requests
 import torch
 from PIL import Image
 import datetime
-from transformers import AlignProcessor, AlignModel
 
 
 AVAILABLE_MODELS = (

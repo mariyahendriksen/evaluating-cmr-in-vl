@@ -2,10 +2,11 @@ import torch
 import os
 import sys
 
-from src.utils.utils import get_config, get_abs_file_paths, get_results_dir, get_project_path
-PROJECT_PATH = get_project_path()
+PROJECT_PATH = '/home/mhendriksen2/projects/evaluating-cmr-in-vl' if 'mhendriksen2' in os.getcwd() else '/Users/mhendriksen/Desktop/repositories/evaluating-cmr-in-vl'
 import sys
 sys.path.append(PROJECT_PATH)
+
+from src.utils.utils import get_config, get_abs_file_paths, get_results_dir, get_project_path
 
 import torch
 from munch import Munch
