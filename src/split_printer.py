@@ -1,4 +1,3 @@
-
 import pickle
 import argparse
 import os
@@ -29,10 +28,6 @@ def get_rsum(dataf):
     return dataf['t2i_recalls_at_1'] + dataf['t2i_recalls_at_5'] + dataf['t2i_recalls_at_10']
 
 def main(args):
-    # TODO: get none file
-    # TODO: get list of perturbations files
-    # TODO: for every none-perturbations pair, compute the statistics
-
     none_path = get_path(args, no_perturbations=True)
     with open(none_path, 'rb') as f:
         dataset_no_perturbation = pickle.load(f)
@@ -46,9 +41,6 @@ def main(args):
             continue
         else:
             filtered_perturbation_files.append(file)
-    # perturbation_files = [file for file in perturbation_files if 'none' not in file and not os.path.isdir(file) and '.DS_Store' not in file]
-    # print(perturbation_files)
-
 
     for perturbation_file in filtered_perturbation_files:
         perturbation_path = os.path.join(perturbations_root, perturbation_file)
@@ -59,7 +51,6 @@ def main(args):
 
         dataset_no_perturbation['t2i_rsum'] = get_rsum(dataf=dataset_no_perturbation)
         dataf_perturbation['t2i_rsum'] = get_rsum(dataf=dataf_perturbation)
-        # print(dataf_perturbation['t2i_rsum'])
 
         dataf_perturbation['original_query'] = dataset_no_perturbation['t2i_queries']
 
@@ -68,7 +59,7 @@ def main(args):
             left_on='t2i_queries',
             right_on='original_query',
             suffixes=['_none', '_perturbation']
-            )# [['t2i_queries', 't2i_rsum_none', 't2i_rsum_typos']]
+            )
 
 
         merged_df['rsum_diff'] = merged_df['t2i_rsum_none'] - merged_df['t2i_rsum_perturbation']
@@ -98,15 +89,12 @@ def main(args):
         file_rsum_unchanged = os.path.join(results_root, f'{perturbation_name}-rsum-unchanged.pkl')
         with open(file_rsum_decreased, 'wb') as f:
             pickle.dump(df_rsum_decreased, f)
-            #print('Saved to ', file_rsum_decreased)
         
         with open(file_rsum_increased, 'wb') as f:
             pickle.dump(df_rsum_increased, f)
-            #print('Saved to ', file_rsum_increased)
         
         with open(file_rsum_unchanged, 'wb') as f:
             pickle.dump(df_rsum_unchanged, f)
-            #print('Saved to ', file_rsum_unchanged)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

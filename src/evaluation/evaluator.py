@@ -2,7 +2,7 @@ import torch
 import os
 
 if torch.cuda.is_available():
-    PROJECT_PATH = "/notebooks/evaluating-cmr-in-mm/"
+    PROJECT_PATH = "/projects/evaluating-cmr-in-mm/"
 else:
     PROJECT_PATH = "/Users/mhendriksen/Desktop/repositories/evaluating-cmr-in-mm/"
 import sys
@@ -85,9 +85,6 @@ class Evaluator(object):
                 for capt_id in retrieved_caption_ids
             ]
 
-            # metrics:
-            # compute recall at k
-            # i2t recall: there is only one correct item in the collection, i.e., total_in_collection=1
             i2t_recall_at_1 = recall_at_k(
                 target_filename=target_filename,
                 retrieved_documents=associated_img_ids,
@@ -106,7 +103,6 @@ class Evaluator(object):
                 k=10,
                 total_in_collection=5,
             )
-            # print('i2t: recalls at 1, 5, 10: ', i2t_recall_at_1, i2t_recall_at_5, i2t_recall_at_10)
 
             i2t_dcg = self.dcg.compute_dcg(
                 query=query,
@@ -114,7 +110,6 @@ class Evaluator(object):
                 retrieved_documents=associated_img_ids,
                 caption_ids=retrieved_caption_ids,
             )
-            # print('i2t_dcg: ', i2t_dcg)
 
             i2t_queries.append(query)
             i2t_targets.append(target_filename)
@@ -183,9 +178,6 @@ class Evaluator(object):
                 query=query, documents=img_emb, documents_names=img_filenames, k=10
             )
 
-            # metrics:
-            # compute recall at k
-            # t2i recall: there is only one correct item in the collection, i.e., total_in_collection=1
             t2i_recall_at_1 = recall_at_k(
                 target_filename=target_filename,
                 retrieved_documents=retrieved_documents,
@@ -210,7 +202,6 @@ class Evaluator(object):
                 target_filename=target_filename,
                 retrieved_documents=retrieved_documents,
             )
-            # print('T2i_dcg: ', t2i_dcg)
 
             t2i_queries.append(query)
             t2i_targets.append(target_filename)
