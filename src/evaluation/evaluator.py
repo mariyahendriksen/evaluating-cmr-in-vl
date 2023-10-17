@@ -2,7 +2,7 @@ import torch
 import os
 
 if torch.cuda.is_available():
-    PROJECT_PATH = "/notebooks/evaluating-cmr-in-mm/"
+    PROJECT_PATH = "/projects/evaluating-cmr-in-mm/"
 else:
     PROJECT_PATH = "/Users/mhendriksen/Desktop/repositories/evaluating-cmr-in-mm/"
 import sys

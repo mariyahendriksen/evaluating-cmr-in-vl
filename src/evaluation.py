@@ -24,11 +24,6 @@ from src.utils.dataset_preprocessing import save_results_dataframe
 from src.utils.utils import get_config, get_logger, get_model
 from src.evaluation.evaluator import Evaluator
 
-
-# os.environ["http_proxy"] = "http://devproxy.bloomberg.com:82"
-# os.environ["https_proxy"] = "http://devproxy.bloomberg.com:82"
-
-
 def main(args):
 
     print("Args: ", args)
