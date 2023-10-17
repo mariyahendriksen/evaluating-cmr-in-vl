@@ -1,0 +1,21 @@
+Dataset:  coco
+MODEL: clip
+Traceback (most recent call last):
+  File "/gpfs/home2/mhendriksen2/projects/evaluating-cmr-in-vl/src/evaluation.py", line 1, in <module>
+    import torch
+ModuleNotFoundError: No module named 'torch'
+
+JOB STATISTICS
+==============
+Job ID: 4186266
+Cluster: snellius
+User/Group: mhendriksen2/mhendriksen2
+State: RUNNING
+Nodes: 1
+Cores per node: 18
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 00:02:24 core-walltime
+Job Wall-clock time: 00:00:08
+Memory Utilized: 0.00 MB (estimated maximum)
+Memory Efficiency: 0.00% of 25.00 GB (25.00 GB/node)
+WARNING: Efficiency statistics may be misleading for RUNNING jobs.
