@@ -5,7 +5,7 @@
 #SBATCH --mem=25gb
 #SBATCH --gpus=1
 #SBATCH --partition=gpu
-#SBATCH -o ./src/logs/eval_missing_jobs_coco.out
+#SBATCH -o ./logs/snellius/eval_missing_jobs_coco.out
 
 source /home/mhendriksen2/miniconda3/etc/profile.d/conda.sh
 conda activate /gpfs/home2/mhendriksen2/projects/eval_39

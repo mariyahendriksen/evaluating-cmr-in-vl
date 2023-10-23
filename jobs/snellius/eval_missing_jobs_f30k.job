@@ -5,10 +5,14 @@
 #SBATCH --mem=50gb
 #SBATCH --gpus=1
 #SBATCH --partition=gpu
-#SBATCH -o ./src/logs/eval_missing_jobs_f30k.out
+#SBATCH -o ./logs/snellius/eval_missing_jobs_f30k.out
+
+source /home/mhendriksen2/miniconda3/etc/profile.d/conda.sh
+conda activate /gpfs/home2/mhendriksen2/projects/eval_39
 
 DATASET=f30k
 echo 'Dataset: ' $DATASET
+
 MODEL=altclip
 declare -a PERTURBATIONS=(
     "char_swap"
@@ -22,10 +26,10 @@ declare -a PERTURBATIONS=(
 for PERTURBATION in "${PERTURBATIONS[@]}"
 do
    echo MODEL: $MODEL
-   CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES python src/evaluation.py \
+   python src/evaluation.py \
     --dataset $DATASET \
     --model $MODEL \
-    --perturbation $PERTURBATION \
+    --perturbation "$PERTURBATION" \
     --task t2i
 done
 
@@ -48,10 +52,10 @@ declare -a PERTURBATIONS=(
 for PERTURBATION in "${PERTURBATIONS[@]}"
 do
    echo MODEL: $MODEL
-   CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES python src/evaluation.py \
+   python src/evaluation.py \
     --dataset $DATASET \
     --model $MODEL \
-    --perturbation $PERTURBATION \
+    --perturbation "$PERTURBATION" \
     --task t2i
 done
 
@@ -64,10 +68,10 @@ declare -a PERTURBATIONS=(
 for PERTURBATION in "${PERTURBATIONS[@]}"
 do
    echo MODEL: $MODEL
-   CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES python src/evaluation.py \
+   python src/evaluation.py \
     --dataset $DATASET \
     --model $MODEL \
-    --perturbation $PERTURBATION \
+    --perturbation "$PERTURBATION" \
     --task t2i
 done
 
@@ -87,6 +91,6 @@ do
    CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES python src/evaluation.py \
     --dataset $DATASET \
     --model $MODEL \
-    --perturbation $PERTURBATION \
+    --perturbation "$PERTURBATION" \
     --task t2i
 done
