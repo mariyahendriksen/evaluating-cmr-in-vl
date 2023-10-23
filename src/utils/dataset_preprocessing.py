@@ -38,6 +38,7 @@ def load_json_annotations(config, augmented=False):
         config.dataset.root,
         annotation_file
     )
+    print('file_path: ', file_path)
     json_file = json.load(open(file_path, 'rb'))
     print('Loaded annotations from ', file_path)
 

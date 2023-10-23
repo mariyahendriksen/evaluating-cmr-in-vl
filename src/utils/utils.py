@@ -3,7 +3,6 @@ import os
 import logging
 from munch import Munch
 from src.models.encoders.clip import CLIP
-from src.models.encoders.flava import FLAVA
 from src.models.encoders.align import ALIGN
 from src.models.encoders.altclip import AltCLIP
 from src.models.encoders.bridgetower import BridgeTower
