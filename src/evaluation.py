@@ -1,28 +1,14 @@
-import torch
 import os
-import sys
-
 PROJECT_PATH = '/home/mhendriksen2/projects/evaluating-cmr-in-vl' if 'mhendriksen2' in os.getcwd() else '/Users/mhendriksen/Desktop/repositories/evaluating-cmr-in-vl'
 import sys
 sys.path.append(PROJECT_PATH)
-
-from src.utils.utils import get_config, get_abs_file_paths, get_results_dir, get_project_path
-
 import torch
 from munch import Munch
-import pandas as pd
 import argparse
-from tqdm import tqdm
 
 torch.set_num_threads(4)
-from src.data.dataset import Dataset
-from src.utils.dataset_preprocessing import load_json_annotations
-from src.retrieval.retriever import Retriever
-from src.metrics.recall_at_k import recall_at_k
-from src.models.relevance_estimators.clip_based import RelevanceEstimator
-from src.metrics.dcg import DCG
 from src.utils.dataset_preprocessing import save_results_dataframe
-from src.utils.utils import get_config, get_logger, get_model
+from src.utils.utils import get_config, get_logger
 from src.evaluation.evaluator import Evaluator
 
 def main(args):

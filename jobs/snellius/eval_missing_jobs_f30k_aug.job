@@ -1,0 +1,100 @@
+#!/bin/bash
+#SBATCH -t 04:00:00
+#SBATCH -N 1
+#SBATCH --cpus-per-task=10
+#SBATCH --mem=50gb
+#SBATCH --gpus=1
+#SBATCH --partition=gpu
+#SBATCH -o ./logs/snellius/eval_missing_jobs_f30k_aug.out
+
+DATASET=f30k_aug
+echo 'Dataset: ' $DATASET
+
+source /home/mhendriksen2/miniconda3/etc/profile.d/conda.sh
+conda activate /gpfs/home2/mhendriksen2/projects/eval_39
+
+MODEL=altclip
+declare -a PERTURBATIONS=(
+    'none'
+    'char_swap'
+    'extra_char'
+    'nearby_char'
+    'probability_based_letter_change'
+    'synonym_noun'
+    'distraction_true'
+    )
+for PERTURBATION in "${PERTURBATIONS[@]}"
+do
+   echo MODEL: $MODEL
+   python src/evaluation.py \
+    --dataset $DATASET \
+    --model $MODEL \
+    --perturbation $PERTURBATION \
+    --task t2i
+done
+
+
+MODEL=align
+declare -a PERTURBATIONS=(
+    'none'
+    'char_swap'
+    'extra_char'
+    'nearby_char'
+    'probability_based_letter_change'
+    'synonym_noun'
+    'synonym_adj'
+    'distraction_true'
+    'distraction_false'
+    'shuffle_all_words'
+    'shuffle_allbut_nouns_and_adj'
+    'shuffle_within_trigrams'
+    'shuffle_trigrams'
+    )
+for PERTURBATION in "${PERTURBATIONS[@]}"
+do
+   echo MODEL: $MODEL
+   python src/evaluation.py \
+    --dataset $DATASET \
+    --model $MODEL \
+    --perturbation $PERTURBATION \
+    --task t2i
+done
+
+
+MODEL=clip
+declare -a PERTURBATIONS=(
+    "char_swap"
+    "extra_char"
+    "nearby_char"
+    "probability_based_letter_change"
+    'synonym_noun'
+    'distraction_true'
+    )
+for PERTURBATION in "${PERTURBATIONS[@]}"
+do
+   echo MODEL: $MODEL
+   python src/evaluation.py \
+    --dataset $DATASET \
+    --model $MODEL \
+    --perturbation $PERTURBATION \
+    --task t2i
+done
+
+MODEL=groupvit
+declare -a PERTURBATIONS=(
+    "char_swap"
+    "extra_char"
+    "nearby_char"
+    "probability_based_letter_change"
+    "synonym_noun"
+    'distraction_true'
+    )
+for PERTURBATION in "${PERTURBATIONS[@]}"
+do
+   echo MODEL: $MODEL
+   python src/evaluation.py \
+    --dataset $DATASET \
+    --model $MODEL \
+    --perturbation $PERTURBATION \
+    --task t2i
+done
