@@ -23,7 +23,6 @@ AVAILABLE_MODELS = (
 
 class ALIGN(nn.Module):
 
-
     def __init__(self, config: munch.Munch) -> None:
         """Init function
 
@@ -41,7 +40,6 @@ class ALIGN(nn.Module):
 
         self.processor = AlignProcessor.from_pretrained(self.model_name)
         self.backbone = AlignModel.from_pretrained(self.model_name)
-
     
     def encode(self, x: Union[List[str], List[PIL.Image.Image]], convert_to_tensor=False) -> np.ndarray:
         if isinstance(x[0], PIL.Image.Image):

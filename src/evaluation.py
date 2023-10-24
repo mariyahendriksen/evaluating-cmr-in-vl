@@ -65,7 +65,7 @@ if __name__ == "__main__":
         "--model",
         type=str,
         default="clip",
-        choices=["clip", "align", "altclip", "groupvit", "TBA"],
+        choices=["clip", "align", "altclip", "groupvit"],
         help="model name: clip, align, altclip, groupvit",
     )
     parser.add_argument(

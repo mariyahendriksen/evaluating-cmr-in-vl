@@ -82,8 +82,6 @@ declare -a PERTURBATIONS=(
     "missing_char"
     "extra_char"
     "probability_based_letter_change"
-    "synonym_noun"
-    "distraction_true"
     )
 for PERTURBATION in "${PERTURBATIONS[@]}"
 do
