@@ -68,7 +68,6 @@ declare -a PERTURBATIONS=(
     "nearby_char"
     "probability_based_letter_change"
     'synonym_noun'
-    'distraction_true'
     )
 for PERTURBATION in "${PERTURBATIONS[@]}"
 do
@@ -82,7 +81,6 @@ done
 
 MODEL=groupvit
 declare -a PERTURBATIONS=(
-    "char_swap"
     "extra_char"
     "nearby_char"
     "probability_based_letter_change"
