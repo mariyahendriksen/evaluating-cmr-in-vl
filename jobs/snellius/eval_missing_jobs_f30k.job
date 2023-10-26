@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH -t 04:00:00
+#SBATCH -t 100:00:00
 #SBATCH -N 1
 #SBATCH --cpus-per-task=10
 #SBATCH --mem=50gb
@@ -15,7 +15,6 @@ echo 'Dataset: ' $DATASET
 
 MODEL=altclip
 declare -a PERTURBATIONS=(
-    "char_swap"
     "missing_char"
     "extra_char"
     "probability_based_letter_change"
@@ -86,7 +85,7 @@ declare -a PERTURBATIONS=(
 for PERTURBATION in "${PERTURBATIONS[@]}"
 do
    echo MODEL: $MODEL
-   CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES python src/evaluation.py \
+   python src/evaluation.py \
     --dataset $DATASET \
     --model $MODEL \
     --perturbation "$PERTURBATION" \

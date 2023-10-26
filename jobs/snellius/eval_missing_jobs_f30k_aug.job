@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH -t 04:00:00
+#SBATCH -t 100:00:00
 #SBATCH -N 1
 #SBATCH --cpus-per-task=10
 #SBATCH --mem=50gb
@@ -15,9 +15,6 @@ conda activate /gpfs/home2/mhendriksen2/projects/eval_39
 
 MODEL=altclip
 declare -a PERTURBATIONS=(
-    'none'
-    'char_swap'
-    'extra_char'
     'nearby_char'
     'probability_based_letter_change'
     'synonym_noun'
@@ -29,7 +26,7 @@ do
    python src/evaluation.py \
     --dataset $DATASET \
     --model $MODEL \
-    --perturbation $PERTURBATION \
+    --perturbation "$PERTURBATION" \
     --task t2i
 done
 
@@ -56,7 +53,7 @@ do
    python src/evaluation.py \
     --dataset $DATASET \
     --model $MODEL \
-    --perturbation $PERTURBATION \
+    --perturbation "$PERTURBATION" \
     --task t2i
 done
 
@@ -75,7 +72,7 @@ do
    python src/evaluation.py \
     --dataset $DATASET \
     --model $MODEL \
-    --perturbation $PERTURBATION \
+    --perturbation "$PERTURBATION" \
     --task t2i
 done
 
@@ -93,6 +90,6 @@ do
    python src/evaluation.py \
     --dataset $DATASET \
     --model $MODEL \
-    --perturbation $PERTURBATION \
+    --perturbation "$PERTURBATION" \
     --task t2i
 done
