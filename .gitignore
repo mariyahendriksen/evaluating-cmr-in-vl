@@ -118,3 +118,4 @@ docs/source/evaluating_itr_in_mm*.rst
 /datasets/
 /zips/
 .idea/
+/logs/snellius/

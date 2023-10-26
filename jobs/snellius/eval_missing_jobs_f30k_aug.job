@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH -t 04:00:00
+#SBATCH -t 100:00:00
 #SBATCH -N 1
 #SBATCH --cpus-per-task=10
 #SBATCH --mem=50gb
@@ -15,13 +15,7 @@ conda activate /gpfs/home2/mhendriksen2/projects/eval_39
 
 MODEL=altclip
 declare -a PERTURBATIONS=(
-    'none'
-    'char_swap'
-    'extra_char'
-    'nearby_char'
     'probability_based_letter_change'
-    'synonym_noun'
-    'distraction_true'
     )
 for PERTURBATION in "${PERTURBATIONS[@]}"
 do
@@ -29,26 +23,14 @@ do
    python src/evaluation.py \
     --dataset $DATASET \
     --model $MODEL \
-    --perturbation $PERTURBATION \
+    --perturbation "$PERTURBATION" \
     --task t2i
 done
 
 
 MODEL=align
 declare -a PERTURBATIONS=(
-    'none'
-    'char_swap'
-    'extra_char'
-    'nearby_char'
     'probability_based_letter_change'
-    'synonym_noun'
-    'synonym_adj'
-    'distraction_true'
-    'distraction_false'
-    'shuffle_all_words'
-    'shuffle_allbut_nouns_and_adj'
-    'shuffle_within_trigrams'
-    'shuffle_trigrams'
     )
 for PERTURBATION in "${PERTURBATIONS[@]}"
 do
@@ -56,18 +38,14 @@ do
    python src/evaluation.py \
     --dataset $DATASET \
     --model $MODEL \
-    --perturbation $PERTURBATION \
+    --perturbation "$PERTURBATION" \
     --task t2i
 done
 
 
 MODEL=clip
 declare -a PERTURBATIONS=(
-    "char_swap"
-    "extra_char"
-    "nearby_char"
-    "probability_based_letter_change"
-    'synonym_noun'
+    'probability_based_letter_change'
     )
 for PERTURBATION in "${PERTURBATIONS[@]}"
 do
@@ -75,17 +53,13 @@ do
    python src/evaluation.py \
     --dataset $DATASET \
     --model $MODEL \
-    --perturbation $PERTURBATION \
+    --perturbation "$PERTURBATION" \
     --task t2i
 done
 
 MODEL=groupvit
 declare -a PERTURBATIONS=(
-    "extra_char"
-    "nearby_char"
-    "probability_based_letter_change"
-    "synonym_noun"
-    'distraction_true'
+    'probability_based_letter_change'
     )
 for PERTURBATION in "${PERTURBATIONS[@]}"
 do
@@ -93,6 +67,6 @@ do
    python src/evaluation.py \
     --dataset $DATASET \
     --model $MODEL \
-    --perturbation $PERTURBATION \
+    --perturbation "$PERTURBATION" \
     --task t2i
 done
