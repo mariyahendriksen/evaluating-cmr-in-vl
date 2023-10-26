@@ -1,4 +1,3 @@
-import torch
 import os
 import sys
 PROJECT_PATH = '/home/mhendriksen2/projects/evaluating-cmr-in-vl' if 'mhendriksen2' in os.getcwd() else '/Users/mhendriksen/Desktop/repositories/evaluating-cmr-in-vl'
@@ -18,9 +17,11 @@ def get_mean(dataf, col: str, round_factor=4):
         ans = 100*ans
     return ans
 
+
 def parse_file_path(path):
     # /Users/mhendriksen/Desktop/repositories/evaluating-cmr-in-mm/results/f30k/clip/t2i/none-results.pkl
     return path.split('/')[-4], path.split('/')[-3], path.split('/')[-2]
+
 
 def check_string_for_conditions(conditions, s) -> bool:
     ans = []
@@ -30,6 +31,7 @@ def check_string_for_conditions(conditions, s) -> bool:
         else:
             ans.append(False)
     return all(ans)
+
 
 def main(args):
     results_dir = get_results_dir()
@@ -60,6 +62,7 @@ def main(args):
     print('Printing missing jobs line by line:')
     for ans in missing_jobs:
         print(ans)
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
