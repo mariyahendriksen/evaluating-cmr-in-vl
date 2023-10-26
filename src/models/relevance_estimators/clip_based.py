@@ -33,7 +33,7 @@ class RelevanceEstimator(nn.Module):
         self.sim_func = self.get_sim_score()
 
     def encode(self, x, **kwargs) -> np.ndarray:
-        if isinstance(x[0], str):
+        if isinstance(x, str):
             x = x[:self.config.model.max_seq_length]
         return self.backbone.encode(x, **kwargs)
 
