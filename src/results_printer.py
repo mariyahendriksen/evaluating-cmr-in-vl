@@ -37,6 +37,7 @@ def main(args):
     results_dir = get_results_dir()
     answers = []
     missing_jobs = []
+    broken_files = []
     for dataset in DATASETS:
         for task in TASKS:
             for model in MODELS:
@@ -46,10 +47,17 @@ def main(args):
                     if check_string_for_conditions(conditions=args.c, s=filepath):
                         print(f"File: {filepath}\nTask: {task}\nModel: {model}\nDataset: {dataset}\nR@1, R@5, R@10, DCG:")
                         if os.path.exists(filepath):
-                            with open(filepath, 'rb') as f:
-                                data = pickle.load(f)
-                            ans = f"{get_mean(data, f'{task}_recalls_at_1')}\t{get_mean(data, f'{task}_recalls_at_5')}\t{get_mean(data, f'{task}_recalls_at_10')}\t{get_mean(data, f'{task}_dcgs')}"
+                            try:
+                                with open(filepath, 'rb') as f:
+                                    data = pickle.load(f)
+                                ans = f"{get_mean(data, f'{task}_recalls_at_1')}\t{get_mean(data, f'{task}_recalls_at_5')}\t{get_mean(data, f'{task}_recalls_at_10')}\t{get_mean(data, f'{task}_dcgs')}"
+                            except:
+                                # file does not open
+                                print('Problem with file ', filepath)
+                                ans = 'None'
+                                broken_files.append((dataset, task, model, perturbation))
                         else:
+                            # file does not exist
                             ans = 'None'
                             if 't2i' in task:
                                 missing_jobs.append((dataset, task, model, perturbation))
@@ -61,6 +69,10 @@ def main(args):
     
     print('Printing missing jobs line by line:')
     for ans in missing_jobs:
+        print(ans)
+
+    print('Printing broken files line by line:')
+    for ans in broken_files:
         print(ans)
 
 

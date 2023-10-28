@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH -t 04:00:00
+#SBATCH -t 100:00:00
 #SBATCH -N 1
 #SBATCH --cpus-per-task=10
 #SBATCH --mem=25gb
@@ -13,9 +13,13 @@ conda activate /gpfs/home2/mhendriksen2/projects/eval_39
 DATASET=coco
 echo 'Dataset: ' $DATASET
 
-MODEL=clip
+MODEL=altclip
 declare -a PERTURBATIONS=(
-    "distraction_false"
+    'probability_based_letter_change'
+    'synonym_noun'
+    'synonym_adj'
+    'distraction_false'
+    'shuffle_trigrams'
     )
 for PERTURBATION in "${PERTURBATIONS[@]}"
 do

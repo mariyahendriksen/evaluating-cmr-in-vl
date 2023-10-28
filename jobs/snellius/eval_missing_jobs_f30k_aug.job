@@ -2,7 +2,7 @@
 #SBATCH -t 100:00:00
 #SBATCH -N 1
 #SBATCH --cpus-per-task=10
-#SBATCH --mem=50gb
+#SBATCH --mem=100gb
 #SBATCH --gpus=1
 #SBATCH --partition=gpu
 #SBATCH -o ./logs/snellius/eval_missing_jobs_f30k_aug.out
