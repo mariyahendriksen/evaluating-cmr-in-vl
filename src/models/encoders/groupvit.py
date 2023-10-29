@@ -54,6 +54,7 @@ class GroupViT(nn.Module):
                 padding=True
             )
         elif isinstance(x[0], str):
+            x = x[:self.config.model.max_seq_length]
             dummy_img = Image.new('RGB', (640, 480)).convert('RGB')
             inputs = self.processor(
                 images=[dummy_img],
