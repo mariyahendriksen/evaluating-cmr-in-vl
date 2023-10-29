@@ -15,11 +15,25 @@ echo 'Dataset: ' $DATASET
 
 MODEL=altclip
 declare -a PERTURBATIONS=(
-    'probability_based_letter_change'
-    'synonym_noun'
-    'synonym_adj'
-    'distraction_false'
     'shuffle_trigrams'
+    )
+for PERTURBATION in "${PERTURBATIONS[@]}"
+do
+   echo MODEL: $MODEL
+   python src/evaluation.py \
+    --dataset $DATASET \
+    --model $MODEL \
+    --perturbation $PERTURBATION \
+    --task t2i
+done
+
+MODEL=clip
+declare -a PERTURBATIONS=(
+    'missing_char'
+    'extra_char'
+    'shuffle_nouns_and_adj'
+    'shuffle_all_words'
+    'shuffle_within_trigrams'
     )
 for PERTURBATION in "${PERTURBATIONS[@]}"
 do

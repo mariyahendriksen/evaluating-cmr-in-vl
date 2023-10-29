@@ -10,7 +10,7 @@ dataset:
 model:
   name: BAAI/AltCLIP
   path:  TBA
-  max_seq_length: 330
+  max_seq_length: 325
 
 dcg:
   relevance_estimator:

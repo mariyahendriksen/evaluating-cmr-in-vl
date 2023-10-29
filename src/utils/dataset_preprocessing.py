@@ -87,7 +87,7 @@ def get_precomputed_embeddings_path(config, dtype):
     path = os.path.join(emb_root, filename)
 
     print('Loaded embeddings from:', path)
-    config.logging.info('Loaded embeddings from:', path)
+    config.logging.info(f'Loaded embeddings from: {path}')
 
     return path
 
@@ -99,7 +99,7 @@ def save_results_dataframe(config, dataf, root, filename):
     with open(filepath, 'wb+') as f:
         pickle.dump(dataf, f)
     print('Saved dataframe to ', filepath)
-    config.logging.info('Saved dataframe to ', filepath)
+    config.logging.info(f'Saved dataframe to {filepath}')
 
 
 def load_results_dataframe(config, filename):
@@ -107,5 +107,5 @@ def load_results_dataframe(config, filename):
     with open(filepath, 'rb') as f:
         data = pickle.load(f)
     print('Loaded results from ', filepath)
-    config.logging.info('Loaded results from ', filepath)
+    config.logging.info(f'Loaded results from {filepath}')
     return data

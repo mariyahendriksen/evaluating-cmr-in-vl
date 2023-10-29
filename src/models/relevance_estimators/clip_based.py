@@ -35,7 +35,12 @@ class RelevanceEstimator(nn.Module):
     def encode(self, x, **kwargs) -> np.ndarray:
         if isinstance(x, str):
             x = x[:self.config.model.max_seq_length]
-        return self.backbone.encode(x, **kwargs)
+        try:
+            encoding = self.backbone.encode(x, **kwargs)
+        except:
+            print('Problem with ', x)
+
+        return encoding
 
     def get_sim_score(self) -> Callable:
         if self.config.dcg.relevance_estimator.sim_score == 'cosine':

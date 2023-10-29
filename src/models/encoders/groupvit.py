@@ -9,13 +9,13 @@ import os
 from typing import List, Type
 import PIL
 from PIL import Image
-from src.utils.dataset_preprocessing import get_img_filenames_full_path, get_img_filenames, divide_chunks, get_precomputed_embeddings_path, load_filenames_embs_from_pkl, get_emb_file_path, dump_filenames_embs_to_pkl
+from src.utils.dataset_preprocessing import get_img_filenames_full_path, get_img_filenames, divide_chunks, \
+    get_precomputed_embeddings_path, load_filenames_embs_from_pkl, get_emb_file_path, dump_filenames_embs_to_pkl
 import requests
 import torch
 import datetime
 from PIL import Image
 from transformers import AutoProcessor, GroupViTModel
-
 
 AVAILABLE_MODELS = (
     'nvidia/groupvit-gcc-yfcc'
@@ -23,7 +23,6 @@ AVAILABLE_MODELS = (
 
 
 class GroupViT(nn.Module):
-
 
     def __init__(self, config: munch.Munch) -> None:
         """Init function
@@ -43,9 +42,8 @@ class GroupViT(nn.Module):
         self.processor = AutoProcessor.from_pretrained(self.model_name)
         self.backbone = GroupViTModel.from_pretrained(self.model_name)
 
-
     def encode(self, x: Union[List[str], List[PIL.Image.Image]], convert_to_tensor: bool) -> np.ndarray:
-        
+
         if isinstance(x[0], PIL.Image.Image):
             inputs = self.processor(
                 images=x,
@@ -64,25 +62,32 @@ class GroupViT(nn.Module):
             )
         else:
             print('Unk input type, options: PIL.Image.Image, str')
-        
+
         with torch.no_grad():
-            outputs = self.backbone(**inputs)
+            try:
+                outputs = self.backbone(**inputs)
+            except:
+                print('Problem with ', x)
+
         if isinstance(x[0], PIL.Image.Image):
             out_emb = outputs['image_embeds']
         elif isinstance(x[0], str):
             out_emb = outputs['text_embeds']
         else:
             print('Unk input type, options: PIL.Image.Image, str')
-        
+
         if convert_to_tensor == False:
             out_emb = out_emb.detach().numpy()
 
         return out_emb
-    
-    def compute_caption_embeddings(self, ds_split: Type[Dataset], chunk_size=1000, compute_from_scratch=False) -> (List[int], List[str], torch.Tensor):
+
+    def compute_caption_embeddings(self, ds_split: Type[Dataset], chunk_size=1000, compute_from_scratch=False) -> (
+            List[int], List[str], torch.Tensor):
         """Compute caption embeddings for a given dataset
 
         Args:
+            compute_from_scratch:
+            chunk_size:
             self (src.models.encoders.clip.CLIP): instance of the class
             ds_split (Type[Dataset]): dataset split for extracting caption ids and raw captions
 
@@ -99,11 +104,12 @@ class GroupViT(nn.Module):
             caption_ids, capts, capt_emb = load_filenames_embs_from_pkl(emb_file_path=emb_path)
             assert len(caption_ids) == len(capts) == capt_emb.shape[0]
             return caption_ids, capts, capt_emb
-        
+
         else:
             print('Computing caption embeddings...')
             caption_ids = ds_split.caption_ids
-            capts = [ds_split.captions[caption_id]['raw'][:self.config.model.max_seq_length] for caption_id in caption_ids]
+            capts = [ds_split.captions[caption_id]['raw'][:self.config.model.max_seq_length] for caption_id in
+                     caption_ids]
 
             # split captions into k chunks, each of size 1000
             capts_chunks = list(divide_chunks(capts, chunk_size))
@@ -114,7 +120,7 @@ class GroupViT(nn.Module):
                 print(f'{ct} Computing embeddings progress: {idx}/{len(capts_chunks)}')
                 self.config.logging.info(
                     f'Computing embeddings progress: {idx}/{len(capts_chunks)}'
-                    )
+                )
                 capt_chunk_emb = self.encode(chunk, convert_to_tensor=False)
                 capt_embs.append(capt_chunk_emb)
             capt_emb = np.concatenate(capt_embs, axis=0)
@@ -128,11 +134,12 @@ class GroupViT(nn.Module):
             dump_filenames_embs_to_pkl(emb_path, data)
 
             return data
-        
+
     def compute_image_embeddings(self, chunk_size=1000, compute_from_scratch=False) -> (List[str], torch.Tensor):
         """Compute image embeddings for a given dataset
 
         Args:
+            compute_from_scratch:
             dataset_name (str) : dataset name
             chunk_size (int) : size of the chunk used preprocess the data
         Returns:
@@ -166,7 +173,7 @@ class GroupViT(nn.Module):
                 print(f'{ct} Computing embeddings progress: {idx}/{len(imgs_full_paths_chunks)}')
                 self.config.logging.info(
                     f'Computing embeddings progress: {idx}/{len(imgs_full_paths_chunks)}'
-                    )
+                )
                 images = [Image.open(filepath).convert('RGB') for filepath in chunk]
                 # print('Image example : ', images[0])
                 img_emb = self.encode(images, convert_to_tensor=False)

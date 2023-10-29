@@ -12,7 +12,7 @@ dataset:
 model:
   name: kakaobrain/align-base
   path:  TBA
-  max_seq_length: 330
+  max_seq_length: 325
 
 dcg:
   relevance_estimator:
