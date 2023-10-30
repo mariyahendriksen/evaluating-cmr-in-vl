@@ -13,20 +13,6 @@ conda activate /gpfs/home2/mhendriksen2/projects/eval_39
 DATASET=coco
 echo 'Dataset: ' $DATASET
 
-MODEL=altclip
-declare -a PERTURBATIONS=(
-    'shuffle_trigrams'
-    )
-for PERTURBATION in "${PERTURBATIONS[@]}"
-do
-   echo MODEL: $MODEL
-   python src/evaluation.py \
-    --dataset $DATASET \
-    --model $MODEL \
-    --perturbation $PERTURBATION \
-    --task t2i
-done
-
 MODEL=clip
 declare -a PERTURBATIONS=(
     'missing_char'
