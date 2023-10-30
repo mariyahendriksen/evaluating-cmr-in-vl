@@ -15,7 +15,6 @@ echo 'Dataset: ' $DATASET
 
 MODEL=altclip
 declare -a PERTURBATIONS=(
-    "missing_char"
     "extra_char"
     "probability_based_letter_change"
     )
@@ -29,10 +28,8 @@ do
     --task t2i
 done
 
-
 MODEL=align
 declare -a PERTURBATIONS=(
-    "missing_char"
     "extra_char"
     "probability_based_letter_change"
     )
@@ -65,7 +62,6 @@ done
 
 MODEL=groupvit
 declare -a PERTURBATIONS=(
-    "missing_char"
     "extra_char"
     "probability_based_letter_change"
     )

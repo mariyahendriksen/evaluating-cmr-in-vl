@@ -11,7 +11,7 @@ dataset:
 model:
   name: clip-ViT-B-32
   path:  TBA
-  max_seq_length: 325
+  max_seq_length: 300
   
 dcg:
   relevance_estimator:
