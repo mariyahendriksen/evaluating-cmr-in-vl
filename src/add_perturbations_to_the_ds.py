@@ -93,6 +93,7 @@ def main(args):
         perturbation=perturbation,
         compute_from_scratch=False
     )
+    assert dataset == config.args.dataset
     
     ds_split = Dataset(config=config, split='test', json_file=json_file)
 

@@ -28,7 +28,7 @@ class ARO:
         ## Finding adjectives
         adjective_idx = [i for i, token in enumerate(doc) if token.tag_ in ['JJ', 'JJR', 'JJS']]
         ## Shuffle the nouns of the text
-        text[noun_idx] = np.random.permuftation(text[noun_idx])
+        text[noun_idx] = np.random.permutation(text[noun_idx])
         ## Shuffle the adjectives of the text
         text[adjective_idx] = np.random.permutation(text[adjective_idx])
 

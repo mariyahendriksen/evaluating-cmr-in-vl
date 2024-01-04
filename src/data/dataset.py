@@ -36,7 +36,9 @@ class Dataset(Dataset):
 		self.augmentations = load_json_annotations(config=self.config, augmented=True)
 
 		if 'aug' in self.config.dataset.name:
-			self.update_ds()
+			self.augment_captions()
+
+		# TODO: update ds so that perturbations are random
 
 	def __len__(self):
 		return len(self.caption_ids)
@@ -83,8 +85,17 @@ class Dataset(Dataset):
 	def update_caption(self, caption_idx, new_caption):
 		self.captions[caption_idx]['raw'] = new_caption
 
+	def random_perturbations(self):
+		"""
+		Apply perturbations randomly
+		"""
 
-	def update_ds(self):
+		pass
+
+	def augment_captions(self):
+		"""
+		caption augmentation
+		"""
 
 		dataset = self.json_file
 		augmented_dataset = self.augmentations

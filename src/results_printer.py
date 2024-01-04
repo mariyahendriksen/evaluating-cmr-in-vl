@@ -2,7 +2,7 @@ import os
 import sys
 PROJECT_PATH = '/home/mhendriksen2/projects/evaluating-cmr-in-vl' if 'mhendriksen2' in os.getcwd() else '/Users/mhendriksen/Desktop/repositories/evaluating-cmr-in-vl'
 sys.path.append(PROJECT_PATH)
-from src.utils.utils import get_config, get_abs_file_paths, get_results_dir, get_project_path
+from src.utils.utils import get_results_dir
 import torch
 import os
 import argparse
@@ -51,9 +51,10 @@ def main(args):
                                 with open(filepath, 'rb') as f:
                                     data = pickle.load(f)
                                 ans = f"{get_mean(data, f'{task}_recalls_at_1')}\t{get_mean(data, f'{task}_recalls_at_5')}\t{get_mean(data, f'{task}_recalls_at_10')}\t{get_mean(data, f'{task}_dcgs')}"
-                            except:
+                            except Exception as e:
                                 # file does not open
                                 print('Problem with file ', filepath)
+                                print(e)
                                 ans = 'None'
                                 broken_files.append((dataset, task, model, perturbation))
                         else:

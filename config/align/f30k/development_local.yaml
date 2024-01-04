@@ -1,6 +1,6 @@
 dataset:
   name: f30k
-  root: /Users/mhendriksen/Desktop/repositories/datasets/f30k/
+  root: /Users/mhendriksen/Desktop/repositories/evaluating-cmr-in-vl/datasets/f30k/
   img_folder: flickr30k-images
   emb_folder: precomputed/align
   img_emb_filename: f30k-img-embeddings.pkl

@@ -40,19 +40,22 @@ ARO_PERTURBATION_TYPES = (
 
 class Perturbation(object):
 
-    def __init__(self, config) -> None:
+    def __init__(self, config, perturbation_type) -> None:
 
         super(Perturbation, self).__init__()
 
         self.config = config
+        self.perturbation_type = perturbation_type
         self.perturbation = self.get_perturbation()
+        # print('Initialized perturation: ', self.perturbation_type)
 
     def __repr__(self) -> str:
         return f'Perturbation type: {self.config.args.perturbation}'
 
     def get_perturbation(self):
 
-        perturbation_type = self.config.args.perturbation
+        perturbation_type = self.perturbation_type
+        # print('perturbation_type: ', perturbation_type)
 
         if perturbation_type in TYPOS_PERTURBATION_TYPES:
             perturbation = TyposPerturbation(type=perturbation_type)

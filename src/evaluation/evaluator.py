@@ -38,7 +38,7 @@ class Evaluator(object):
         self.model = get_model(config=self.config)
 
         if self.config.args.perturbation != 'none':
-            self.perturbation = Perturbation(config=self.config)
+            self.perturbation = Perturbation(config=self.config, perturbation_type=self.config.args.perturbation)
 
         self.rel_estimator = RelevanceEstimator(config=self.config, dataset=self.ds_split)
         self.retriever = Retriever(config=self.config, model=self.model)
@@ -163,14 +163,28 @@ class Evaluator(object):
         for datapoint in self.ds_split:
             # get textual query and target
             query = datapoint[0]
+            
+            # if we need to apply perturbations on captions
             if self.config.args.perturbation != 'none':
                 # print('Initial caption: ', query)
-                try:
-                    query = self.perturbation.apply_perturbation_to_caption(query)
-                except:
-                    print('Problem with the query: ', query)
-                # print('new caption: ', query)
-                # break
+
+                # TODO: if dataset consists out of mix of perturbations sampled ramdonmly
+                if self.config.args.perturbation == 'all_random':
+                    raise NotImplementedError
+                
+                # TODO: if dataset consists out of mix of perturbations applied wrt complexity
+                if self.config.args.perturbation == 'all_ordered':
+                    raise NotImplementedError
+
+                
+                # if we need to apply one perturbation type on all captions
+                else:
+                    try:
+                        query = self.perturbation.apply_perturbation_to_caption(query)
+                    except:
+                        print('Problem with the query: ', query)
+                    # print('new caption: ', query)
+                    # break
              
             target_filename = datapoint[4]
 
