@@ -1,3 +1,6 @@
+"""
+This script takes a dataset as an input and returns its version with perturbations applied on captions
+"""
 import argparse
 import sys
 project_path = '/Users/mhendriksen/Desktop/repositories/evaluating-cmr-in-vl'
