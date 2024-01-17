@@ -85,6 +85,8 @@ class Dataset(Dataset):
 	def update_caption(self, caption_idx, new_caption):
 		self.captions[caption_idx]['raw'] = new_caption
 
+	def 
+
 	def random_perturbations(self):
 		"""
 		Apply perturbations randomly
