@@ -1,15 +1,26 @@
-# Evaluating Image-Text Retrieval in Multimodal Models
+# Assessing the Impact of Brittleness in Image-Text Retrieval Benchmarks from a Vision-Language Models Perspective
 
-This repository contains the code for the internship project of 'Evaluating Image-Text Retrieval in Multimodal Models'.
+This repository contains the code for the arXiv preprint 'Assessing the Impact of Brittleness in Image-Text Retrieval Benchmarks from a Vision-Language Models Perspective'.
 
 
-to fully install spacy: 
+## Requirements
+
+To set up the environment, install the requirements using the following command:
+
 ```angular2html
-python -m spacy download en_core_web_sm
+conda env create --file src/environment.yaml
 ```
 
+This command will create a conda environment `evalvl`. Activate the created environment:
 
-to fully install nltk: 
 ```angular2html
-TBA
+source activate evalvl
+```
+
+## Printing the results
+
+To print out the results, run the following command:
+
+```angular2html
+python src/results_printer.py
 ```
